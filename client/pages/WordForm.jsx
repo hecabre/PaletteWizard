@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
 //import { useParams } from "react-router-dom";
+import { useState } from "react";
 import { createPaleteWord } from "../api/color.api";
+import ColorSquare from "../components/ColorSquare";
 //import { toast } from "react-hot-toast";
 
 function WordForm() {
@@ -9,15 +11,15 @@ function WordForm() {
     formState: { errors },
     handleSubmit,
   } = useForm();
+  const [color, setColor] = useState([]);
 
-  //const params = useParams();
   const onSubmit = handleSubmit(async (data) => {
     const response = await createPaleteWord(data);
-    console.log(response);
+    setColor(response.data);
   });
 
   return (
-    <div>
+    <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input
           type="text"
@@ -27,7 +29,11 @@ function WordForm() {
         {errors.color && <span>This field is required</span>}
         <button>Create Palette</button>
       </form>
-    </div>
+      {color &&
+        color.map((e) => (
+          <ColorSquare color={e} key={e} />
+        ))}
+    </>
   );
 }
 

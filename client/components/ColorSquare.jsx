@@ -1,6 +1,8 @@
 function ColorSquare({color}) {
   return (
-    <div className={`bg-[${color}] rounded-md w-24 h-10`}>{color}</div>
+    <>
+      <h1 className="underline bg-cyan-300 w-full h-9">{color}</h1>
+    </>
   )
 }
 

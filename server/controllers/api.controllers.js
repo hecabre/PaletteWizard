@@ -12,7 +12,7 @@ async function runCompletion(data) {
   try {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
-      prompt: `Make a color palette UI UX with the word ${data} only 4 colors and give me only the hex code`,
+      prompt: `Create a palette of 4 colors that match based on the word ${data}, for UI UX design, only give me the hex code`,
       temperature: 1,
       max_tokens: 256,
       top_p: 1,
@@ -30,7 +30,7 @@ async function runCompletionColor(color) {
   try {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
-      prompt: `Make a color palette UI UX with the color ${color} only 4 colors and give me only the hex code`,
+      prompt: `Create a palette of 4 colors that match based on the color ${color}, for UI UX design, only give me the hex code`,
       temperature: 1,
       max_tokens: 256,
       top_p: 1,
@@ -44,12 +44,13 @@ async function runCompletionColor(color) {
   }
 }
 
-
 export const createPaleteColor = async (req, res) => {
   const { color } = req.body;
+  const regex = /#[A-Fa-f0-9]{6}\b/g;
   try {
     const response = await runCompletion(color);
-    res.json(response);
+    const hexValues = response.match(regex);
+    res.send(hexValues);
   } catch (error) {
     res.status(500).send("Internal server error");
   }
@@ -63,8 +64,10 @@ export const createPaleteWord = async (req, res) => {
   const { word } = req.body;
   try {
     const response = await runCompletion(word);
-    console.log(response)
-    res.json(response)
+    const jsonString = JSON.stringify(response);
+    const regex = /#[A-Fa-f0-9]{6}\b/g;
+    const hexValues = jsonString.match(regex);
+    res.send(hexValues);
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal server error");
