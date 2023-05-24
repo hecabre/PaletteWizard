@@ -2,18 +2,27 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import ColorSquare from "./ColorSquare";
 import { toast } from "react-hot-toast";
+import Loader from "./Loader";
 
-function WordForm({promptFunction}) {
+function WordForm({ promptFunction }) {
   const {
     register,
-    formState: { errors, isSubmitSuccessful},
+    formState: { errors, isSubmitSuccessful },
     handleSubmit,
   } = useForm();
   const [color, setColor] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = handleSubmit(async (data) => {
-    const response = await promptFunction(data);
-    setColor(response.data);
+    setLoading(true);
+    try {
+      const response = await promptFunction(data);
+      setColor(response.data);
+    } catch {
+      toast.error("Something go wrong, try later");
+    } finally {
+      setLoading(false);
+    }
   });
 
   return (
@@ -25,14 +34,13 @@ function WordForm({promptFunction}) {
           {...register("word", { required: true })}
         />
         {errors.word && !isSubmitSuccessful && (
-          <>
-            {toast.error("Type a word")}
-          </>
+          <>{toast.error("Type a word")}</>
         )}
         <button type="submit">Create Palette</button>
       </form>
-
-      {color && (
+      {loading ? (
+        <Loader />
+      ) : (
         <div className="grid lg:grid-cols-4 h-20 md:grid-cols-2">
           {color.map((e) => (
             <ColorSquare color={e} key={e} />

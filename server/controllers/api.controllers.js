@@ -12,7 +12,7 @@ async function runCompletion(data) {
   try {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
-      prompt: `Create a palette of 4 colors that match based on the word ${data}, for UI UX design, only give me the hex code`,
+      prompt: `Create a palette of 4 colors that match based on the word ${data}. These colors will be suitable for UI/UX design purposes. Please provide the hex codes for the colors.`,
       temperature: 1,
       max_tokens: 256,
       top_p: 1,
@@ -48,7 +48,7 @@ export const createPaleteColor = async (req, res) => {
   const { color } = req.body;
   const regex = /#[A-Fa-f0-9]{6}\b/g;
   try {
-    const response = await runCompletion(color);
+    const response = await runCompletionColor(color);
     const hexValues = response.match(regex);
     res.send(hexValues);
   } catch (error) {
