@@ -30,7 +30,7 @@ async function runCompletionColor(color) {
   try {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
-      prompt: `Create a palette of 4 colors that match based on the color ${color}, for UI UX design, only give me the hex code`,
+      prompt: `Create a palette of 4 colors that match based on the color ${color} hex or the color ${color}, for UI UX design, only give me the hex code`,
       temperature: 1,
       max_tokens: 256,
       top_p: 1,

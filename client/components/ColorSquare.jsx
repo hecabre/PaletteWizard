@@ -1,9 +1,12 @@
-function ColorSquare({color}) {
+function ColorSquare({ color }) {
   return (
-    <>
-      <h1 className="underline bg-cyan-300 w-full h-9">{color}</h1>
-    </>
-  )
+    <div
+      style={{ backgroundColor: color }}
+      className="h-full text-white w-1/2 rounded-lg text-center p-2 flex items-center justify-center"
+    >
+      {color}
+    </div>
+  );
 }
 
-export default ColorSquare
+export default ColorSquare;
