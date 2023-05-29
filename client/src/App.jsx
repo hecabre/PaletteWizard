@@ -11,9 +11,9 @@ function App() {
     <Navbar />
       <Routes>
         <Route path="/" element={<Navigate to="/random" />} />
-        <Route path="/random" element={<RandomColor />} />
-        <Route path="/word" element={<WordForm />} />
-        <Route path="/color" element={<ColorForm />} />
+        <Route path="/Random" element={<RandomColor />} />
+        <Route path="/Word" element={<WordForm />} />
+        <Route path="/Color" element={<ColorForm />} />
       </Routes>
       <Toaster position="bottom-right" reverseOrder={false} />
     </BrowserRouter>

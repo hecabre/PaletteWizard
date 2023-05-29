@@ -1,8 +1,13 @@
-import FormPromt from "../components/FormPromt";
+import FormPrompt from "../components/FormPrompt";
 import { createPaleteWord } from "../api/color.api";
 
 function WordForm() {
-  return <FormPromt promptFunction={createPaleteWord}></FormPromt>;
+  return (
+    <FormPrompt
+      promptFunction={createPaleteWord}
+      descriptionWord="word"
+    ></FormPrompt>
+  );
 }
 
 export default WordForm;

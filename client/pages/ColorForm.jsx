@@ -1,8 +1,8 @@
-import FormPromt from "../components/FormPromt";
+import FormPrompt from "../components/FormPrompt.jsx";
 import { createPaleteColor } from "../api/color.api.js";
 
 function ColorForm() {
-  return <FormPromt promptFunction={createPaleteColor}></FormPromt>;
+  return <FormPrompt promptFunction={createPaleteColor} descriptionWord="color"></FormPrompt>;
 }
 
 export default ColorForm;
